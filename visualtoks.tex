@@ -81,14 +81,16 @@
 		% #1 may be an \if... token, so we must use first/secondoftwo
 		\ifx\tempa\tempb \expandafter\visualtoks@firstoftwo \else \expandafter\visualtoks@secondoftwo \fi
 			{\string#1$_{%
-				\ifcat $#13\fi
-				\ifcat &#14\fi
-				\ifcat###16\fi
-				\ifcat ^#17\fi
-				\ifcat _#18\fi
-				\ifcat\space#110\fi
-				\ifcat a#111\fi
-				\ifcat !#112\fi
+				\escapechar92
+				\ifcat $\noexpand#13\fi
+				\ifcat &\noexpand#14\fi
+				\ifcat##\noexpand#16\fi
+				\ifcat ^\noexpand#17\fi
+				\ifcat _\noexpand#18\fi
+				\ifcat\space\noexpand#110\fi
+				\ifcat a\noexpand#111\fi
+				\ifcat !\noexpand#112\fi
+				\ifcat\noexpand~\noexpand#113\fi
 			}$}%
 			{\visualtoksB{\string#1}}%
 	\fi\fi\fi
