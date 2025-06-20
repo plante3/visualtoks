@@ -1,0 +1,111 @@
+% visualtoks.tex, version 1.0
+
+% Copyright (C) 2025 plante
+% This package is relased under the LaTeX Project Public License (LPPL) 1.3c.
+
+% visualtoks: typeset TeXbook-style visualisations of token lists.
+
+% Usage: `\visualtoks { <tokens> }`
+% This package may be used in plain TeX or LaTeX by `\input{visualtoks}`.
+
+% See the documentation for typeset examples and caveats.
+
+
+
+\ifdefined\eoldef
+	\expandafter\endinput
+\fi
+\edef\next{\catcode`\noexpand\@=\the\catcode`\@\space}
+\catcode`\@=11
+
+% \visualtoks@cycle { tokens }
+% Apply \visualtoksA to each token in tokens. Space tokens, left and right braces
+% are replaced with \visualtoks@cycle@space, \visualtoks@cycle@bgroup, and
+% \visualtoks@cycle@egroup respectively. Expandable.
+\long\def\visualtoks@cycle#1{\visualtoks@cycleA#1{\visualtoks@cycle@nil}\visualtoks@cycleF}
+\long\def\visualtoks@cycleA#1#{%
+	\expandafter\visualtoks@cycleD
+		\romannumeral\visualtoks@cycleB{}#1 \visualtoks@cycle@nil
+	\visualtoks@cycleF \visualtoks@cycleE
+}
+\long\def\visualtoks@cycleB#1#2 #3\visualtoks@cycle@nil{%
+	\if\relax\detokenize{#3}\relax \visualtoks@cycleC{#1#2}\fi
+	\visualtoks@cycleB#1#2\visualtoks@cycle@space#3\visualtoks@cycle@nil
+}
+\long\def\visualtoks@cycleC#1\fi#2\visualtoks@cycle@nil{\fi\z@ #1\visualtoks@cycle@nil}
+\long\def\visualtoks@cycleD#1{%
+	\ifx\visualtoks@cycle@nil#1\visualtoks@cycleF\fi
+	\visualtoksA{#1}\visualtoks@cycleD
+}
+\long\def\visualtoks@cycleE#1{%
+	\ifx\visualtoks@cycle@nil#1\visualtoks@cycleF\fi
+	\visualtoksA\visualtoks@cycle@bgroup
+	\visualtoks@cycle{#1}%
+	\visualtoksA\visualtoks@cycle@egroup
+	\visualtoks@cycleA
+}
+\long\def\visualtoks@cycleF#1\visualtoks@cycleF{\fi}
+
+\protected\def\visualtoks@cycle@bgroup{\noexpand\visualtoks@cycle@bgroup}
+\protected\def\visualtoks@cycle@egroup{\noexpand\visualtoks@cycle@egroup}
+\protected\def\visualtoks@cycle@space {\noexpand\visualtoks@cycle@space}
+
+\protected\def\visualtoks@cycle@nil{\noexpand\visualtoks@cycle@nil}
+
+\long\def\visualtoks@firstoftwo#1#2{#1}
+\long\def\visualtoks@secondoftwo#1#2{#2}
+
+\newdimen\visualtokskip \visualtokskip=1em
+
+\long\def\visualtoks#1{%
+	\begingroup
+		\leavevmode
+		\ifcsname ttfamily\endcsname \ttfamily \else \tt \fi
+		\raggedright\frenchspacing
+		\hskip-\visualtokskip \visualtoks@cycle{#1}%
+	\endgroup
+}
+\long\def\visualtoksA#1{%
+	\hskip\visualtokskip
+	\ifx\visualtoks@cycle@space#1%
+		\char`\ $_{10}$%
+	\else\ifx\visualtoks@cycle@bgroup#1%
+		\char`\{$_1$%
+	\else\ifx\visualtoks@cycle@egroup#1%
+		\char`\}$_2$%
+	\else
+		\escapechar`\\%
+		\edef\tempa{\string#1}%
+		\escapechar\m@ne
+		\edef\tempb{\string#1}%
+		% #1 may be an \if... token, so we must use first/secondoftwo
+		\ifx\tempa\tempb \expandafter\visualtoks@firstoftwo \else \expandafter\visualtoks@secondoftwo \fi
+			{\string#1$_{%
+				\ifcat $#13\fi
+				\ifcat &#14\fi
+				\ifcat###16\fi
+				\ifcat ^#17\fi
+				\ifcat _#18\fi
+				\ifcat\space#110\fi
+				\ifcat a#111\fi
+				\ifcat !#112\fi
+			}$}%
+			{\visualtoksB{\string#1}}%
+	\fi\fi\fi
+}
+
+\long\def\visualtoksB#1{%
+	\hbox{%
+		\vrule
+		\vtop{%
+			\vbox{%
+				\hrule \kern\p@
+				\hbox{\vphantom/\thinspace#1\thinspace}%
+			}%
+			\kern\p@ \hrule
+		}%
+		\vrule
+	}%
+}
+
+\next

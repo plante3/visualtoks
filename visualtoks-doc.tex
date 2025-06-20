@@ -1,0 +1,83 @@
+\documentclass[11pt]{article}
+
+\usepackage{geometry}
+
+\usepackage{mlmodern}
+
+\usepackage{enumitem}
+\setlist[itemize]{align=parleft,left=0pt..30pt}
+
+\parindent=0pt
+\parskip=\medskipamount
+
+\input visualtoks
+
+\title{The \texttt{visualtoks} Package, version 1.0}
+\author{plante}
+
+\begin{document}
+
+\maketitle
+
+\noindent
+In The \TeX book, Knuth demonstrates the concept of tokens with the following example:
+\begin{quote}
+	\medskip
+	For example, if the normal conventions of plain \TeX are in force, the text
+	`\verb|{\hskip 36 pt}|' is converted into a list of eight tokens:
+	\[
+		\hbox{\visualtokskip=1.25em \visualtoks{{\hskip 36 pt}}}
+	\]
+	The subscripts here are the category codes, as listed earlier: 1 for ``beginning of group,''
+	12 for ``other character,'' and so on. The {\ttfamily \visualtoksB{\string\hskip}} doesn't
+	get a subscript, because it represents a control sequence token instead of a character token.
+	Notice that the space after \verb|\hskip| does not get into the token list, because it
+	follows a control word. \hfill (p.\ 38){\parfillskip=0pt \par}
+	\medskip
+\end{quote}
+The same style of token display is used several times in the \TeX book.
+It would be useful to be able to generate the display automatically
+for an arbitrary list of tokens, for pedagogical or debugging purposes.
+This package provides the \verb|\visualtoks| command which does exactly that.
+
+\subsection*{Usage}
+
+Usage: \verb|\visualtoks{|$\,\langle\textit{token list}\rangle\,$\verb|}|.
+
+This package may be used in plain \TeX\ or \LaTeX\ by \verb|\input{visualtoks}|. The $\varepsilon$-\TeX\ extensions are required for the \verb|\detokenize| primitive.
+
+$\langle\textit{token list}\rangle$ must be balanced with respect to explicit braces, and must not contain the token \verb|\visualtoks@cycle@nil|. It is assumed that \verb|{| is the only character with category code 1 (beginning of group).
+
+The horizontal separation between displayed tokens may be configured by the \verb|\dimen| register \verb|\visualtokskip|. The default value is 1em.
+
+\subsection*{Samples}
+
+\begin{itemize}
+
+\item \verb|\visualtoks{\def \macro {abc #1\egroup}}| gives
+\[ \hbox{\visualtoks{\def \macro #1{abc #1\egroup}}}. \]
+
+\item \verb|\visualtoks{$$\halign{&##\hfil\crcr}$$\par}| gives
+\[ \hbox{\visualtoks{$$\halign{&##\hfil\crcr}$$\par}}. \]
+
+\item Unbalanced \verb|\if...| tokens: \\
+	\verb|\visualtoks{\ifnum\iffalse{\fi`} = 0\else}| gives
+\[ \hbox{\visualtoks{\ifnum\iffalse{\fi`} = 0\else}}. \]
+
+\makeatletter
+\item To demonstrate how \TeX\ tokenizes consecutive spaces: \\
+	\verb|\makeatletter |\verb*|\edef\temp{{    }{\@spaces}}| \\
+	\verb|\expandafter\visualtoks\expandafter{\temp}| gives
+\[ \hbox{\edef\temp{{    }{\@spaces}} \expandafter\visualtoks\expandafter{\temp}}. \]
+
+\item To demonstrate the \verb|\lowercase| technique: \\
+	\verb|\begingroup \lccode`a=`$ \lccode`?=`$ \lccode`#=`$ \lccode`|\verb*| =`$| \\
+	\verb|\lowercase{\endgroup\def\temp{$a?## }}| \\
+	\verb|\expandafter\demotokens\expandafter{\temp}| gives
+\begingroup \lccode`a=`$ \lccode`?=`$ \lccode`#=`$ \lccode`\ =`$
+\lowercase{\endgroup\def\temp{$a?## }}
+\[ \hbox{\expandafter\visualtoks\expandafter{\temp}}. \]
+
+\end{itemize}
+
+\end{document}
