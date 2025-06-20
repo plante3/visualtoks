@@ -81,7 +81,7 @@
 		% #1 may be an \if... token, so we must use first/secondoftwo
 		\ifx\tempa\tempb \expandafter\visualtoks@firstoftwo \else \expandafter\visualtoks@secondoftwo \fi
 			{\string#1$_{%
-				\let~\relax
+				\let~\empty
 				\ifcat\noexpand~\noexpand#113%
 					\expandafter\visualtoks@firstoftwo
 				\else
