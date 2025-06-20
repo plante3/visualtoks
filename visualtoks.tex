@@ -57,7 +57,7 @@
 
 \newdimen\visualtokskip \visualtokskip=1em
 
-\long\def\visualtoks#1{%
+\protected\long\def\visualtoks#1{%
 	\begingroup
 		\leavevmode
 		\ifcsname ttfamily\endcsname \ttfamily \else \tt \fi
