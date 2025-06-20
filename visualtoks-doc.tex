@@ -90,11 +90,14 @@ The horizontal separation between displayed tokens may be configured by the dime
 
 \item To demonstrate the \verb|\lowercase| technique: \\
 	\verb|\begingroup| \\
-	\verb|    \lccode`|\verb*| |\verb|=`$ \lccode`a=`$ \lccode`?=`$ \lccode`~=`$ \lccode`#=`$| \\
-	\verb|\lowercase{\endgroup\def\temp{$## a?~}}| \\
+	\verb|    \lccode`&=`$ \lccode`#=`$ \lccode`^=`$ \lccode`_=`$| \\
+	\verb|    \lccode`|\verb*| |\verb|=`$ \lccode`A=`$ \lccode`?=`$ \lccode`~=`$| \\
+	\verb|\lowercase{\endgroup\def\temp{$&##^_|\verb*| |\verb|A?~}}| \\
 	\verb|\expandafter\demotokens\expandafter{\temp}| gives
-\begingroup \lccode`a=`$ \lccode`?=`$ \lccode`~=`$ \lccode`#=`$ \lccode`\ =`$
-\lowercase{\endgroup\def\temp{$## a?~}}
+\begingroup
+	\lccode`&=`$ \lccode`#=`$ \lccode`^=`$ \lccode`_=`$
+	\lccode` =`$ \lccode`A=`$ \lccode`?=`$ \lccode`~=`$
+\lowercase{\endgroup\def\temp{$&##^_ A?~}}
 \[ \hbox{\expandafter\visualtoks\expandafter{\temp}}. \]
 
 \end{itemize}
