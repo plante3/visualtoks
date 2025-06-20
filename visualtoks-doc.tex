@@ -12,7 +12,7 @@
 
 \input visualtoks
 
-\title{The \texttt{visualtoks} Package, version 1.0}
+\title{The \texttt{visualtoks} Package, version 1.0a}
 \author{plante}
 
 \begin{document}
@@ -29,7 +29,7 @@ In The \TeX book, Knuth demonstrates the concept of tokens with the following ex
 		\hbox{\visualtokskip=1.25em \visualtoks{{\hskip 36 pt}}}
 	\]
 	The subscripts here are the category codes, as listed earlier: 1 for ``beginning of group,''
-	12 for ``other character,'' and so on. The {\ttfamily \visualtoksB{\string\hskip}} doesn't
+	12 for ``other character,'' and so on. The {\ttfamily \visualtoksB{hskip}} doesn't
 	get a subscript, because it represents a control sequence token instead of a character token.
 	Notice that the space after \verb|\hskip| does not get into the token list, because it
 	follows a control word. \hfill (p.\ 38){\parfillskip=0pt \par}
@@ -48,7 +48,7 @@ This package may be used in plain \TeX\ or \LaTeX\ by \verb|\input{visualtoks}|.
 
 $\langle\textit{token list}\rangle$ must be balanced with respect to explicit braces, and must not contain the token \verb|\visualtoks@cycle@nil|. It is assumed that \verb|{| is the only character with category code 1 (beginning of group).
 
-The horizontal separation between displayed tokens may be configured by the \verb|\dimen| register \verb|\visualtokskip|. The default value is 1em.
+The horizontal separation between displayed tokens may be configured by the dimen register \verb|\visualtokskip|. The default value is 1em.
 
 \subsection*{Samples}
 
