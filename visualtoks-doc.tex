@@ -10,6 +10,24 @@
 \parindent=0pt
 \parskip=\medskipamount
 
+\usepackage[hidelinks]{hyperref}
+
+\protected\def\link{\futurelet\tempa\linkA}
+\def\linkA{\ifx[\tempa \expandafter\linkB \else \expandafter\linkC \fi}
+\long\def\linkB[#1]#2{\href{#2}{\ttul{#1}}}
+\long\def\linkC#1{\href{#1}{\ttul{#1}}}
+\protected\long\def\email#1{\href{mailto:#1}{\ttul{#1}}}
+
+\protected\long\def\ttul#1{%
+	\leavevmode
+	\setbox0=\hbox{\ttfamily #1}%
+	\lower2.25pt\rlap{\leaders\hrule height.625px\hskip\wd0}%
+	\pdfliteral{q 1 G 2 Tr 1.7 w 1 j 1 J}%
+	\rlap{\copy0}%
+	\pdfliteral{Q}%
+	\box0
+}
+
 \input visualtoks
 
 \title{The \texttt{visualtoks} Package, version 1.0a}
@@ -79,5 +97,15 @@ The horizontal separation between displayed tokens may be configured by the dime
 \[ \hbox{\expandafter\visualtoks\expandafter{\temp}}. \]
 
 \end{itemize}
+
+\subsection*{License}
+
+This package is copyright \copyright\ 2025 plante, and
+relased under the LaTeX Project Public License (LPPL) 1.3c.
+
+\subsection*{Repository}
+
+The upstream repository of this package may be found at
+	\[ \link{https://github.com/plante3/visualtoks/tree/main}. \]
 
 \end{document}
