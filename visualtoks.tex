@@ -61,7 +61,7 @@
 	\begingroup
 		\leavevmode
 		\ifcsname ttfamily\endcsname \ttfamily \else \tt \fi
-		\raggedright\frenchspacing
+		\raggedright\frenchspacing\m@th
 		\hskip-\visualtokskip \visualtoks@cycle{#1}%
 	\endgroup
 }
@@ -87,7 +87,7 @@
 					\expandafter\visualtoks@secondoftwo
 				\fi
 					\empty
-					{\ifcat $\noexpand#13\fi
+					{\ifcat$\noexpand#13\fi
 					\ifcat &\noexpand#14\fi
 					\ifcat##\noexpand#16\fi
 					\ifcat ^\noexpand#17\fi

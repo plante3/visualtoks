@@ -64,9 +64,11 @@ Usage: \verb|\visualtoks{|$\,\langle\textit{token list}\rangle\,$\verb|}|.
 
 This package may be used in plain \TeX\ or \LaTeX\ by \verb|\input{visualtoks}|. The $\varepsilon$-\TeX\ extensions are required for the \verb|\detokenize| primitive.
 
-$\langle\textit{token list}\rangle$ must be balanced with respect to explicit braces, and must not contain the token \verb|\visualtoks@cycle@nil|. It is assumed that \verb|{| is the only character with category code 1 (beginning of group).
-
 The horizontal separation between displayed tokens may be configured by the dimen register \verb|\visualtokskip|. The default value is 1em.
+
+$\langle\textit{token list}\rangle$ must be balanced with respect to explicit braces, and must not contain the token \verb|\visualtoks@cycle@nil|.
+It is assumed that \verb|{| and \verb|}| are the only characters with category codes 1 (beginning of group) and 2 (end of group) respectively.
+It is further assumed that \verb|~| is an active character that is not also an implicit character token.
 
 \subsection*{Samples}
 
