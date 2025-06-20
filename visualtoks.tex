@@ -1,4 +1,4 @@
-% visualtoks.tex, version 1.0
+% visualtoks.tex, version 1.0a
 
 % Copyright (C) 2025 plante
 % This package is relased under the LaTeX Project Public License (LPPL) 1.3c.
@@ -81,16 +81,20 @@
 		% #1 may be an \if... token, so we must use first/secondoftwo
 		\ifx\tempa\tempb \expandafter\visualtoks@firstoftwo \else \expandafter\visualtoks@secondoftwo \fi
 			{\string#1$_{%
-				\escapechar92
-				\ifcat $\noexpand#13\fi
-				\ifcat &\noexpand#14\fi
-				\ifcat##\noexpand#16\fi
-				\ifcat ^\noexpand#17\fi
-				\ifcat _\noexpand#18\fi
-				\ifcat\space\noexpand#110\fi
-				\ifcat a\noexpand#111\fi
-				\ifcat !\noexpand#112\fi
-				\ifcat\noexpand~\noexpand#113\fi
+				\ifcat\noexpand~\noexpand#113%
+					\expandafter\visualtoks@firstoftwo
+				\else
+					\expandafter\visualtoks@secondoftwo
+				\fi
+					\empty
+					{\ifcat $\noexpand#13\fi
+					\ifcat &\noexpand#14\fi
+					\ifcat##\noexpand#16\fi
+					\ifcat ^\noexpand#17\fi
+					\ifcat _\noexpand#18\fi
+					\ifcat\space\noexpand#110\fi
+					\ifcat a\noexpand#111\fi
+					\ifcat !\noexpand#112\fi}%
 			}$}%
 			{\visualtoksB{\string#1}}%
 	\fi\fi\fi
