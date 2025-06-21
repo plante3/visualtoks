@@ -82,20 +82,16 @@
 		\ifx\tempa\tempb \expandafter\visualtoks@firstoftwo \else \expandafter\visualtoks@secondoftwo \fi
 			{\string#1$_{%
 				\let~\empty
-				\ifcat\noexpand~\noexpand#113%
-					\expandafter\visualtoks@firstoftwo
-				\else
-					\expandafter\visualtoks@secondoftwo
-				\fi
-					\empty
-					{\ifcat$\noexpand#13\fi
-					\ifcat &\noexpand#14\fi
-					\ifcat##\noexpand#16\fi
-					\ifcat ^\noexpand#17\fi
-					\ifcat _\noexpand#18\fi
-					\ifcat\space\noexpand#110\fi
-					\ifcat a\noexpand#111\fi
-					\ifcat !\noexpand#112\fi}%
+				\lccode`~=`#1\lowercase{\let~}\empty
+				\ifcat$\noexpand#13\fi
+				\ifcat &\noexpand#14\fi
+				\ifcat##\noexpand#16\fi
+				\ifcat ^\noexpand#17\fi
+				\ifcat _\noexpand#18\fi
+				\ifcat\space\noexpand#110\fi
+				\ifcat a\noexpand#111\fi
+				\ifcat !\noexpand#112\fi
+				\ifcat\noexpand~\noexpand#113\fi%
 			}$}%
 			{\visualtoksB{\string#1}}%
 	\fi\fi\fi
