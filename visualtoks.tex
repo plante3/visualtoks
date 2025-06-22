@@ -55,18 +55,17 @@
 \long\def\visualtoks@firstoftwo#1#2{#1}
 \long\def\visualtoks@secondoftwo#1#2{#2}
 
-\newdimen\visualtokskip \visualtokskip=1em
+\newdimen\visualtokssep \visualtokssep=1em
 
 \protected\long\def\visualtoks#1{%
 	\begingroup
 		\leavevmode
-		\ifcsname ttfamily\endcsname \ttfamily \else \tt \fi
-		\raggedright\frenchspacing\m@th
-		\hskip-\visualtokskip \visualtoks@cycle{#1}%
+		\ifcsname ttfamily\endcsname \ttfamily \else \tt \fi \m@th
+		\hskip-\visualtokssep \visualtoks@cycle{#1}%
 	\endgroup
 }
 \long\def\visualtoksA#1{%
-	\hskip\visualtokskip
+	\hskip\visualtokssep
 	\ifx\visualtoks@cycle@space#1%
 		\char`\ $_{10}$%
 	\else\ifx\visualtoks@cycle@bgroup#1%
@@ -95,7 +94,8 @@
 			}$}%
 			{\visualtoksB{\string#1}%
 				\long\expandafter\def\expandafter\tempa\expandafter##\expandafter1\csname\string#1\endcsname{}%
-				\if\relax\detokenize\expandafter\expandafter\expandafter{\expandafter\tempa\expandafter#1\csname\string#1\endcsname}\relax *\fi
+				\if\relax\detokenize\expandafter\expandafter\expandafter
+					{\expandafter\tempa\expandafter#1\csname\string#1\endcsname}\relax *\fi
 			}%
 	\fi\fi\fi
 }

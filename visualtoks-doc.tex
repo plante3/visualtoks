@@ -44,7 +44,7 @@ In The \TeX book, Knuth demonstrates the concept of tokens with the following ex
 	For example, if the normal conventions of plain \TeX\ are in force, the text
 	`\verb|{\hskip 36 pt}|' is converted into a list of eight tokens:
 	\[
-		\hbox{\visualtokskip=1.25em \visualtoks{{\hskip 36 pt}}}
+		\hbox{\visualtokssep=1.25em \visualtoks{{\hskip 36 pt}}}
 	\]
 	The subscripts here are the category codes, as listed earlier: 1 for ``beginning of group,''
 	12 for ``other character,'' and so on. The {\ttfamily \visualtoksB{hskip}} doesn't
@@ -64,7 +64,7 @@ Usage: \verb|\visualtoks{|$\,\langle\textit{token list}\rangle\,$\verb|}|.
 
 This package may be used in plain \TeX\ or \LaTeX\ by \verb|\input{visualtoks}|. The $\varepsilon$-\TeX\ extensions are required for the \verb|\detokenize| primitive.
 
-The horizontal separation between displayed tokens may be configured by the dimen register \verb|\visualtokskip|. The default value is 1em.
+The horizontal separation between displayed tokens may be configured by the dimen register \verb|\visualtokssep|. The default value is 1em.
 
 $\langle\textit{token list}\rangle$ must be balanced with respect to explicit braces, and must not contain the token \verb|\visualtoks@cycle@nil|.
 It is assumed that \verb|{| and \verb|}| are the only characters with category codes 1 (beginning of group) and 2 (end of group) respectively.
