@@ -62,7 +62,7 @@ This package provides the \verb|\visualtoks| command which does exactly that.
 
 Usage: \verb|\visualtoks{|$\,\langle\textit{token list}\rangle\,$\verb|}|.
 
-This package may be used in plain \TeX\ or \LaTeX\ by \verb|\input{visualtoks}|. The $\varepsilon$-\TeX\ extensions are required for the \verb|\detokenize| primitive.
+This package may be loaded by \verb|\input{visualtoks}| (plain \TeX\ and other formats) or \verb|\usepackage{visualtoks}| (\LaTeX). % The $\varepsilon$-\TeX\ extensions are required for the \verb|\detokenize| primitive.
 
 The horizontal separation between displayed tokens may be configured by the dimen register \verb|\visualtokssep|. The default value is 1em.
 
@@ -111,7 +111,7 @@ An \emph{anomalous} control sequence is one that differs in shape from the contr
 	\expandafter\visualtoks\expandafter{\the\font \tenrm}}. \]
 
 % \setbox0=\vbox{\halign{#\crcr \global\futurelet\temp\relax \crcr}}
-% \expandafter\visualtoks\expandafter{\temp}
+% \expandafter\visualtoks\expandafter{\temp \endtemplate}
 
 \end{itemize}
 
