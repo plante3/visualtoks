@@ -1,4 +1,4 @@
-% visualtoks.tex, version 1.0a
+% visualtoks.tex, version 1.1
 
 % Copyright (C) 2025 plante
 % This package is released under the LaTeX Project Public License (LPPL) 1.3c.
@@ -37,7 +37,7 @@
 	\visualtoksA{#1}\visualtoks@cycleD
 }
 \long\def\visualtoks@cycleE#1{%
-	\expandafter\if\expandafter\relax\detokenize\expandafter{\visualtoks@cycleF#1\visualtoks@cycle@nil}\relax \else \visualtoks@cycleG \fi
+	\if\relax\detokenize\expandafter{\visualtoks@cycleF#1\visualtoks@cycle@nil}\relax \else \visualtoks@cycleG \fi
 	\visualtoksA\visualtoks@cycle@bgroup
 	\visualtoks@cycle{#1}%
 	\visualtoksA\visualtoks@cycle@egroup
@@ -93,7 +93,10 @@
 				\ifcat !\noexpand#112\fi
 				\ifcat\noexpand~\noexpand#113\fi
 			}$}%
-			{\visualtoksB{\string#1}}%
+			{\visualtoksB{\string#1}%
+				\long\expandafter\def\expandafter\tempa\expandafter##\expandafter1\csname\string#1\endcsname{}%
+				\if\relax\detokenize\expandafter\expandafter\expandafter{\expandafter\tempa\expandafter#1\csname\string#1\endcsname}\relax *\fi
+			}%
 	\fi\fi\fi
 }
 

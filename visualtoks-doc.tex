@@ -30,7 +30,7 @@
 
 \input visualtoks
 
-\title{The \texttt{visualtoks} Package, version 1.0a}
+\title{The \texttt{visualtoks} Package, version 1.1}
 \author{plante}
 
 \begin{document}
@@ -69,6 +69,8 @@ The horizontal separation between displayed tokens may be configured by the dime
 $\langle\textit{token list}\rangle$ must be balanced with respect to explicit braces, and must not contain the token \verb|\visualtoks@cycle@nil|.
 It is assumed that \verb|{| and \verb|}| are the only characters with category codes 1 (beginning of group) and 2 (end of group) respectively.
 
+An \emph{anomalous} control sequence is one that differs in shape from the control sequence with the same name constructed by \verb|\csname|. Anomalous control sequences are marked with a star next to their box.
+
 \subsection*{Samples}
 
 \begin{itemize}
@@ -100,6 +102,16 @@ It is assumed that \verb|{| and \verb|}| are the only characters with category c
 	\lccode` =`$ \lccode`A=`$ \lccode`?=`$ \lccode`~=`$
 \lowercase{\endgroup\def\temp{$&##^_ A?~}}
 \[ \hbox{\expandafter\visualtoks\expandafter{\temp}}. \]
+
+\item To show anomalous tokens: \\
+\verb|\font\tenrm=cmr10 \tenrm| \\
+\verb|\expandafter\visualtoks\expandafter{\the\font \tenrm}| gives
+
+\[ \hbox{\font\tenrm=cmr10 \tenrm
+	\expandafter\visualtoks\expandafter{\the\font \tenrm}}. \]
+
+% \setbox0=\vbox{\halign{#\crcr \global\futurelet\temp\relax \crcr}}
+% \expandafter\visualtoks\expandafter{\temp}
 
 \end{itemize}
 
