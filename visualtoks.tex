@@ -22,11 +22,11 @@
 % Apply \visualtoksA to each token in tokens. Space tokens, left and right braces
 % are replaced with \visualtoks@cycle@space, \visualtoks@cycle@bgroup, and
 % \visualtoks@cycle@egroup respectively. Expandable.
-\long\def\visualtoks@cycle#1{\visualtoks@cycleA#1{\visualtoks@cycle@nil}\visualtoks@cycleF}
+\long\def\visualtoks@cycle#1{\visualtoks@cycleA#1{\visualtoks@cycle@nil}\visualtoks@cycle@nil}
 \long\def\visualtoks@cycleA#1#{%
 	\expandafter\visualtoks@cycleD
 		\romannumeral\visualtoks@cycleB{}#1 \visualtoks@cycle@nil
-	\visualtoks@cycleF \visualtoks@cycleE
+	\visualtoks@cycle@nil \visualtoks@cycleE
 }
 \long\def\visualtoks@cycleB#1#2 #3\visualtoks@cycle@nil{%
 	\if\relax\detokenize{#3}\relax \visualtoks@cycleC{#1#2}\fi
@@ -34,17 +34,18 @@
 }
 \long\def\visualtoks@cycleC#1\fi#2\visualtoks@cycle@nil{\fi\z@ #1\visualtoks@cycle@nil}
 \long\def\visualtoks@cycleD#1{%
-	\ifx\visualtoks@cycle@nil#1\visualtoks@cycleF\fi
+	\ifx\visualtoks@cycle@nil#1\visualtoks@cycleG\fi
 	\visualtoksA{#1}\visualtoks@cycleD
 }
 \long\def\visualtoks@cycleE#1{%
-	\ifx\visualtoks@cycle@nil#1\visualtoks@cycleF\fi
+	\expandafter\if\expandafter\relax\detokenize\expandafter{\visualtoks@cycleF#1\visualtoks@cycle@nil}\relax \else \visualtoks@cycleG \fi
 	\visualtoksA\visualtoks@cycle@bgroup
 	\visualtoks@cycle{#1}%
 	\visualtoksA\visualtoks@cycle@egroup
 	\visualtoks@cycleA
 }
-\long\def\visualtoks@cycleF#1\visualtoks@cycleF{\fi}
+\long\def\visualtoks@cycleF#1\visualtoks@cycle@nil{}
+\long\def\visualtoks@cycleG#1\visualtoks@cycle@nil{\fi}
 
 \protected\def\visualtoks@cycle@bgroup{\noexpand\visualtoks@cycle@bgroup}
 \protected\def\visualtoks@cycle@egroup{\noexpand\visualtoks@cycle@egroup}
