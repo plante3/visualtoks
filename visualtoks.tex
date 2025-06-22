@@ -18,14 +18,17 @@
 \edef\next{\catcode`\noexpand\@=\the\catcode`\@\space}
 \catcode`\@=11
 
+\long\def\visualtoks@firstoftwo#1#2{#1}
+\long\def\visualtoks@secondoftwo#1#2{#2}
+
 % \visualtoks@cycle { tokens }
 % Apply \visualtoksA to each token in tokens. Space tokens, left and right braces
 % are replaced with \visualtoks@cycle@space, \visualtoks@cycle@bgroup, and
 % \visualtoks@cycle@egroup respectively. Expandable.
 \long\def\visualtoks@cycle#1{\iffalse{\fi\visualtoks@cycleA#1{\visualtoks@cycle@nil}\visualtoks@cycle@nil\iffalse}\fi}
 \long\def\visualtoks@cycleA#1#{%
-	\visualtoks@cycleB\visualtoks@cycleC#1 \visualtoks@cycle@nil
-	\visualtoks@cycle@nil \visualtoks@cycleD
+	\visualtoks@cycleB\visualtoks@cycleC#1 \visualtoks@cycle@nil \visualtoks@cycle@nil
+	\visualtoks@cycleD
 }
 \long\def\visualtoks@cycleB#1#2 #3\visualtoks@cycle@nil{%
 	\if\relax\detokenize{#3}\relax \expandafter\visualtoks@firstoftwo \else \expandafter\visualtoks@secondoftwo \fi
@@ -52,9 +55,6 @@
 
 \protected\def\visualtoks@cycle@nil{\noexpand\visualtoks@cycle@nil}
 
-\long\def\visualtoks@firstoftwo#1#2{#1}
-\long\def\visualtoks@secondoftwo#1#2{#2}
-
 \newdimen\visualtokssep \visualtokssep=1em
 
 \protected\long\def\visualtoks#1{%
@@ -77,7 +77,6 @@
 		\edef\tempa{\string#1}%
 		\escapechar\m@ne
 		\edef\tempb{\string#1}%
-		% #1 may be an \if... token, so we must use first/secondoftwo
 		\ifx\tempa\tempb \expandafter\visualtoks@firstoftwo \else \expandafter\visualtoks@secondoftwo \fi
 			{\string#1$_{%
 				\let~\empty
