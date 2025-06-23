@@ -12,6 +12,8 @@
 
 \usepackage[hidelinks]{hyperref}
 
+\usepackage{visualtoks}
+
 \protected\def\link{\futurelet\tempa\linkA}
 \def\linkA{\ifx[\tempa \expandafter\linkB \else \expandafter\linkC \fi}
 \long\def\linkB[#1]#2{\href{#2}{\ttul{#1}}}
@@ -27,8 +29,6 @@
 	\pdfliteral{Q}%
 	\box0
 }
-
-\input visualtoks
 
 \title{The \texttt{visualtoks} Package, version 1.1}
 \author{plante}

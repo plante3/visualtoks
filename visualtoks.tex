@@ -30,10 +30,10 @@
 	\visualtoks@cycleB\visualtoks@cycleC#1 \visualtoks@cycle@nil \visualtoks@cycle@nil
 	\visualtoks@cycleD
 }
-\long\def\visualtoks@cycleB#1#2 #3\visualtoks@cycle@nil{%
-	\if\relax\detokenize{#3}\relax \expandafter\visualtoks@firstoftwo \else \expandafter\visualtoks@secondoftwo \fi
-		{#1#2\visualtoks@cycle@nil}%
-		{\visualtoks@cycleB#1#2\visualtoks@cycle@space#3\visualtoks@cycle@nil}%
+\long\def\visualtoks@cycleB#1 #2\visualtoks@cycle@nil{%
+	\if\relax\detokenize{#2}\relax \expandafter\visualtoks@firstoftwo \else \expandafter\visualtoks@secondoftwo \fi
+		{#1\visualtoks@cycle@nil}%
+		{\visualtoks@cycleB#1\visualtoks@cycle@space#2\visualtoks@cycle@nil}%
 }
 \long\def\visualtoks@cycleC#1{%
 	\ifx\visualtoks@cycle@nil#1\visualtoks@cycleF\fi
