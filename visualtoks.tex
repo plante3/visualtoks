@@ -5,8 +5,8 @@
 
 % visualtoks: typeset TeXbook-style visualisations of token lists.
 
-% Usage: `\visualtoks { <tokens> }`
-% This package may be used in plain TeX or LaTeX by `\input{visualtoks}`.
+% This package may be used in LaTeX by `\usepackage{visualtoks}`, or
+% in plain TeX and other formats by `\input{visualtoks}`.
 
 % See the documentation for typeset examples and caveats.
 
@@ -18,42 +18,10 @@
 \edef\next{\catcode`\noexpand\@=\the\catcode`\@\space}
 \catcode`\@=11
 
+\input tokmap
+
 \long\def\visualtoks@firstoftwo#1#2{#1}
 \long\def\visualtoks@secondoftwo#1#2{#2}
-
-% \visualtoks@cycle { tokens }
-% Apply \visualtoksA to each token in tokens. Space tokens, left and right braces
-% are replaced with \visualtoks@cycle@space, \visualtoks@cycle@bgroup, and
-% \visualtoks@cycle@egroup respectively. Expandable.
-\long\def\visualtoks@cycle#1{\iffalse{\fi\visualtoks@cycleA#1{\visualtoks@cycle@nil}\visualtoks@cycle@nil\iffalse}\fi}
-\long\def\visualtoks@cycleA#1#{%
-	\visualtoks@cycleB\visualtoks@cycleC#1 \visualtoks@cycle@nil \visualtoks@cycle@nil
-	\visualtoks@cycleD
-}
-\long\def\visualtoks@cycleB#1 #2\visualtoks@cycle@nil{%
-	\if\relax\detokenize{#2}\relax \expandafter\visualtoks@firstoftwo \else \expandafter\visualtoks@secondoftwo \fi
-		{#1\visualtoks@cycle@nil}%
-		{\visualtoks@cycleB#1\visualtoks@cycle@space#2\visualtoks@cycle@nil}%
-}
-\long\def\visualtoks@cycleC#1{%
-	\ifx\visualtoks@cycle@nil#1\visualtoks@cycleF\fi
-	\visualtoksA{#1}\visualtoks@cycleC
-}
-\long\def\visualtoks@cycleD#1{%
-	\if\relax\detokenize\expandafter{\visualtoks@cycleE#1\visualtoks@cycle@nil}\relax \else \visualtoks@cycleF \fi
-	\visualtoksA\visualtoks@cycle@bgroup
-	\visualtoks@cycle{#1}%
-	\visualtoksA\visualtoks@cycle@egroup
-	\visualtoks@cycleA
-}
-\long\def\visualtoks@cycleE#1\visualtoks@cycle@nil{}
-\long\def\visualtoks@cycleF#1\visualtoks@cycle@nil{\fi}
-
-\protected\def\visualtoks@cycle@bgroup{\noexpand\visualtoks@cycle@bgroup}
-\protected\def\visualtoks@cycle@egroup{\noexpand\visualtoks@cycle@egroup}
-\protected\def\visualtoks@cycle@space {\noexpand\visualtoks@cycle@space}
-
-\protected\def\visualtoks@cycle@nil{\noexpand\visualtoks@cycle@nil}
 
 \newdimen\visualtokssep \visualtokssep=1em
 
@@ -61,16 +29,16 @@
 	\begingroup
 		\leavevmode
 		\ifcsname ttfamily\endcsname \ttfamily \else \tt \fi \m@th
-		\hskip-\visualtokssep \visualtoks@cycle{#1}%
+		\hskip-\visualtokssep \tokmap\visualtoksA{#1}%
 	\endgroup
 }
 \long\def\visualtoksA#1{%
 	\hskip\visualtokssep
-	\ifx\visualtoks@cycle@space#1%
+	\ifx\tokmap@space#1%
 		\char`\ $_{10}$%
-	\else\ifx\visualtoks@cycle@bgroup#1%
+	\else\ifx\tokmap@bgroup#1%
 		\char`\{$_1$%
-	\else\ifx\visualtoks@cycle@egroup#1%
+	\else\ifx\tokmap@egroup#1%
 		\char`\}$_2$%
 	\else
 		\escapechar`\\%
