@@ -4,8 +4,8 @@ visualtoks: typeset TeXbook-style visualisations of token lists.
 
 Usage: `\visualtoks { <token list> }`
 
-This package may be used in LaTeX by `\usepackage{eoldef}`, or
-in plain TeX and other formats by `\input{eoldef}`.
+This package may be used in LaTeX by `\usepackage{visualtoks}`, or
+in plain TeX and other formats by `\input{visualtoks}`.
 
 See the documentation for typeset examples and caveats.
 
